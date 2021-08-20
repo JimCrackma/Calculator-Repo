@@ -1,35 +1,18 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
+//
+//@author JimCrackma
+//
 
 public class Calculator {
 
-    JFrame mainFrame;
-    JButton buttonTest;
-    JPanel panel;
+    public Calculator(){
 
-
-    Calculator(){
-
-        mainFrame = new JFrame("Super krasser Taschenrechner");
-        mainFrame.setSize(600,700);
-
-        panel = new JPanel();
-
-        buttonTest = new JButton("test");
-        panel.add(buttonTest);
-
-        mainFrame.add(panel);
-
-        mainFrame.pack();
-        mainFrame.setVisible(true);
-
+        new Frame();
     }
 
 
     public static void main(String[] args){
 
-        Calculator calculator = new Calculator();
+        new Calculator();
 
             }
         }
