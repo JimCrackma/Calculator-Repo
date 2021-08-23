@@ -145,13 +145,11 @@ public class Frame extends JFrame{
         //operand = result;
     }
 
-    public void appendNumberButtonTextAction(ActionEvent event) {
-        for(int i=0;i<numberButtons.length;i++) {                                     
-
-            if(event.getSource() == numberButtons[i]) {
-
-                display.setText(display.getText().concat(String.valueOf(i)));
-            }
+    private void appendNumberButtonTextAction(ActionEvent event) {
+        if (event.getSource() instanceof JButton) {
+            JButton button = (JButton) event.getSource();
+            String input = button.getText();
+            display.setText(display.getText().concat(input));
         }
     }
 }
