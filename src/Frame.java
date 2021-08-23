@@ -8,25 +8,17 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 
-public class Frame extends JFrame {
+public class Frame extends JFrame{
 
-    private JFrame mainFrame;
-    private JPanel panel;
-    private JTextField display;
-
-    private JButton buttonTest;
-    private JButton[] numberButtons = new JButton[10];
-    ArrayList<JButton> functionButtons = new ArrayList<>();
-
-    private JButton addButton, subButton, mulButton, divButton,
-                    decButton, equButton, delButton, clrButton;
+    final private int F_WIDTH = 420;
+    final private int F_HEIGHT = 550;
 
     public Frame(){
 
         //Hauptframe erzeugen
-        mainFrame = new JFrame("Super krasser Taschenrechner");
+        JFrame mainFrame = new JFrame("Super krasser Taschenrechner");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(420,550);
+        mainFrame.setSize(F_WIDTH,F_HEIGHT);
         mainFrame.setResizable(false);
         mainFrame.setLayout(null);
 
@@ -34,19 +26,18 @@ public class Frame extends JFrame {
         Font myFont = new Font("Arial",Font.ITALIC,30);
 
         //Buttons erzeugen
-        buttonTest = new JButton();
-        buttonTest.setText("Test");
+        JButton addButton = new JButton("+");
+        JButton subButton = new JButton("-");
+        JButton mulButton = new JButton("*");
+        JButton divButton = new JButton("/");
+        JButton decButton = new JButton(".");
+        JButton equButton = new JButton("=");
+        JButton delButton = new JButton("Del");
+        JButton clrButton = new JButton("Clr");
 
-        addButton = new JButton("+");
-        subButton = new JButton("-");
-        mulButton = new JButton("*");
-        divButton = new JButton("/");
-        decButton = new JButton(".");
-        equButton = new JButton("=");
-        delButton = new JButton("Del");
-        clrButton = new JButton("Clr");
+        //zur ArrayList hinzufügen
+        ArrayList<JButton> functionButtons = new ArrayList<>();
 
-        //ArrayList hinzufügen
         functionButtons.add(addButton);
         functionButtons.add(subButton);
         functionButtons.add(mulButton);
@@ -63,14 +54,16 @@ public class Frame extends JFrame {
             fb.setFocusable(false);
         }
 
-        for(int i =0;i<10;i++) {
+        JButton[] numberButtons = new JButton[10];
+        for(int i = 0; i<10; i++) {
 
             numberButtons[i] = new JButton(String.valueOf(i));
             numberButtons[i].setFont(myFont);
+            numberButtons[i].setFocusable(false);
         }
 
         //Fläche für Buttons erzeugen
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setBounds(50, 100, 300, 300);
         panel.setBackground(new Color(96,123,139));
 
@@ -99,7 +92,7 @@ public class Frame extends JFrame {
 
 
         //Display erzeugen
-        display = new JTextField();
+        JTextField display = new JTextField();
         display.setBounds(50, 25, 300, 70);
         display.setEditable(false);
 
@@ -111,5 +104,6 @@ public class Frame extends JFrame {
         mainFrame.setVisible(true);
 
     }
+
 
 }

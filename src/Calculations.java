@@ -1,22 +1,26 @@
-public class Calculations {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    public int addition(int number1, int number2){
+public class Calculations implements ActionListener {
 
-        return number1 + number2;
+    private double result = 0;
+    private char operator = '+';
+    private double operand; // wird später zur Abfrage der numberButtons benutzt
+
+
+
+    private void calculate(double operand) {
+        switch (operator) {
+            case '+': result += operand; break;
+            case '-': result -= operand; break;
+            case '*': result *= operand; break;
+            case '/': result /= operand; break;
+        }
     }
 
-    public int substraction(int number1, int number2){
 
-        return number1 - number2;
-    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-    public int multiply(int number1, int number2){
-
-        return number1 * number2;
-    }
-
-    public float division(float number1, float number2){
-
-        return number1 / number2;
     }
 }

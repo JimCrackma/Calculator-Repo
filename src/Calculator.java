@@ -1,7 +1,3 @@
-//
-//@author JimCrackma
-//
-
 public class Calculator {
 
     public Calculator(){
