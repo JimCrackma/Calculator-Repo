@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 
@@ -13,6 +14,10 @@ public class Frame extends JFrame{
     final private int F_WIDTH = 420;
     final private int F_HEIGHT = 550;
 
+    private JButton[] numberButtons;
+    JTextField display;
+
+    private char operator = '+';
     public Frame(){
 
         //Hauptframe erzeugen
@@ -36,19 +41,19 @@ public class Frame extends JFrame{
         JButton clrButton = new JButton("Clr");
 
         //zur ArrayList hinzufügen
-        ArrayList<JButton> functionButtons = new ArrayList<>();
+        ArrayList<JButton> operationButtons = new ArrayList<>();
 
-        functionButtons.add(addButton);
-        functionButtons.add(subButton);
-        functionButtons.add(mulButton);
-        functionButtons.add(divButton);
-        functionButtons.add(decButton);
-        functionButtons.add(equButton);
-        functionButtons.add(delButton);
-        functionButtons.add(clrButton);
+        operationButtons.add(addButton);
+        operationButtons.add(subButton);
+        operationButtons.add(mulButton);
+        operationButtons.add(divButton);
+        operationButtons.add(decButton);
+        operationButtons.add(equButton);
+        operationButtons.add(delButton);
+        operationButtons.add(clrButton);
 
-        // functionButtons bestücken
-        for(JButton fb : functionButtons) {
+        // operationButtons bestücken
+        for(JButton fb : operationButtons) {
 
             fb.setFont(myFont);
             fb.setFocusable(false);
@@ -92,8 +97,9 @@ public class Frame extends JFrame{
 
 
         //Display erzeugen
-        JTextField display = new JTextField();
+        display = new JTextField();
         display.setBounds(50, 25, 300, 70);
+        display.setFont(myFont);
         display.setEditable(false);
 
         // alles hinzufügen
@@ -103,7 +109,59 @@ public class Frame extends JFrame{
         // anschalten
         mainFrame.setVisible(true);
 
+        //ActionListener
+
+        for (JButton numberButton : numberButtons) {
+            numberButton.addActionListener(this::appendNumberButtonTextAction);
+        }
+
+
+        addButton.addActionListener(this::doAddButtonAction);
+        subButton.addActionListener(this::doSubButtonAction);
+        mulButton.addActionListener(this::doMulButtonAction);
+        divButton.addActionListener(this::doDivButtonAction);
+        equButton.addActionListener(this::doEquButtonAction);
     }
 
+        // Methoden zum auslösen für ActionListener
+    public void doAddButtonAction(ActionEvent e){
 
+        display.setText(display.getText().concat("+"));
+        operator = '+' ;
+    }
+
+    public void doSubButtonAction(ActionEvent e){
+
+        display.setText(display.getText().concat("-"));
+        operator = '-' ;
+    }
+
+    public void doMulButtonAction(ActionEvent e) {
+
+        display.setText(display.getText().concat("*"));
+        operator = '*';
+    }
+
+    public void doDivButtonAction(ActionEvent e) {
+
+        display.setText(display.getText().concat("/"));
+        operator = '/';
+    }
+
+    public void doEquButtonAction(ActionEvent e) {
+
+        display.setText(display.getText().concat("="));
+        operator = '=';
+        //operand = result;
+    }
+
+    public void appendNumberButtonTextAction(ActionEvent event) {
+        for(int i=0;i<10;i++) {                                     //Problem hier!
+
+            if(event.getSource() == numberButtons[i]) {
+
+                display.setText(display.getText().concat(String.valueOf(i)));
+            }
+        }
+    }
 }
