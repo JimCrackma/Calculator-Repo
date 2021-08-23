@@ -58,12 +58,13 @@ public class Frame extends JFrame{
             fb.setFont(myFont);
             fb.setFocusable(false);
         }
-
-        JButton[] numberButtons = new JButton[10];
-        for(int i = 0; i<10; i++) {
+        // numberButtons bestücken
+        numberButtons = new JButton[10];
+        for(int i = 0; i<numberButtons.length; i++) {
 
             numberButtons[i] = new JButton(String.valueOf(i));
             numberButtons[i].setFont(myFont);
+            numberButtons[i].addActionListener(this::appendNumberButtonTextAction);
             numberButtons[i].setFocusable(false);
         }
 
@@ -71,10 +72,7 @@ public class Frame extends JFrame{
         JPanel panel = new JPanel();
         panel.setBounds(50, 100, 300, 300);
         panel.setBackground(new Color(96,123,139));
-
-        //Layout
         panel.setLayout(new GridLayout(4,4,10,10));
-
 
         // Fläche bestücken
         panel.add(numberButtons[1]);
@@ -94,8 +92,6 @@ public class Frame extends JFrame{
         panel.add(equButton);
         panel.add(divButton);
 
-
-
         //Display erzeugen
         display = new JTextField();
         display.setBounds(50, 25, 300, 70);
@@ -110,12 +106,6 @@ public class Frame extends JFrame{
         mainFrame.setVisible(true);
 
         //ActionListener
-
-        for (JButton numberButton : numberButtons) {
-            numberButton.addActionListener(this::appendNumberButtonTextAction);
-        }
-
-
         addButton.addActionListener(this::doAddButtonAction);
         subButton.addActionListener(this::doSubButtonAction);
         mulButton.addActionListener(this::doMulButtonAction);
@@ -123,7 +113,7 @@ public class Frame extends JFrame{
         equButton.addActionListener(this::doEquButtonAction);
     }
 
-        // Methoden zum auslösen für ActionListener
+    // Methoden zum auslösen für ActionListener
     public void doAddButtonAction(ActionEvent e){
 
         display.setText(display.getText().concat("+"));
@@ -156,7 +146,7 @@ public class Frame extends JFrame{
     }
 
     public void appendNumberButtonTextAction(ActionEvent event) {
-        for(int i=0;i<10;i++) {                                     //Problem hier!
+        for(int i=0;i<numberButtons.length;i++) {                                     
 
             if(event.getSource() == numberButtons[i]) {
 
