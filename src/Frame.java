@@ -14,14 +14,15 @@ public class Frame extends JFrame{
     final private int F_WIDTH = 420;
     final private int F_HEIGHT = 550;
 
-    private JButton[] numberButtons;
-    JTextField display;
+    private final JButton[] numberButtons;
+    private final JTextField display;
+    private final JFrame mainFrame;
 
     private char operator = '+';
     public Frame(){
 
         //Hauptframe erzeugen
-        JFrame mainFrame = new JFrame("Super krasser Taschenrechner");
+        mainFrame = new JFrame("Super krasser Taschenrechner");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(F_WIDTH,F_HEIGHT);
         mainFrame.setResizable(false);
@@ -37,8 +38,8 @@ public class Frame extends JFrame{
         JButton divButton = new JButton("/");
         JButton decButton = new JButton(".");
         JButton equButton = new JButton("=");
-        JButton delButton = new JButton("Del");
-        JButton clrButton = new JButton("Clr");
+        JButton delButton = new JButton("del");
+        JButton clrButton = new JButton("C");
 
         //zur ArrayList hinzufügen
         ArrayList<JButton> operationButtons = new ArrayList<>();
@@ -67,6 +68,12 @@ public class Frame extends JFrame{
             numberButtons[i].addActionListener(this::appendNumberButtonTextAction);
             numberButtons[i].setFocusable(false);
         }
+
+
+        delButton.setBounds(150,430,80,50);
+
+        clrButton.setBounds(250,430,80,50);
+
 
         //Fläche für Buttons erzeugen
         JPanel panel = new JPanel();
@@ -100,6 +107,8 @@ public class Frame extends JFrame{
 
         // alles hinzufügen
         mainFrame.add(panel);
+        mainFrame.add(delButton);
+        mainFrame.add(clrButton);
         mainFrame.add(display);
 
         // anschalten
@@ -111,38 +120,72 @@ public class Frame extends JFrame{
         mulButton.addActionListener(this::doMulButtonAction);
         divButton.addActionListener(this::doDivButtonAction);
         equButton.addActionListener(this::doEquButtonAction);
+        decButton.addActionListener(this::doDecButtonAction);
+        delButton.addActionListener(this::doDelButtonAction);
+        clrButton.addActionListener(this::doClrButtonAction);
     }
 
     // Methoden zum auslösen für ActionListener
-    public void doAddButtonAction(ActionEvent e){
+    public void doAddButtonAction(ActionEvent event){
 
+        Calculations.operand = Double.parseDouble(display.getText());
+        Calculations.calculate(Calculations.operand);
         display.setText(display.getText().concat("+"));
         operator = '+' ;
     }
 
-    public void doSubButtonAction(ActionEvent e){
+    public void doSubButtonAction(ActionEvent event){
 
+        Calculations.operand = Double.parseDouble(display.getText());
+        Calculations.calculate(Calculations.operand);
         display.setText(display.getText().concat("-"));
         operator = '-' ;
     }
 
-    public void doMulButtonAction(ActionEvent e) {
+    public void doMulButtonAction(ActionEvent event) {
 
         display.setText(display.getText().concat("*"));
         operator = '*';
     }
 
-    public void doDivButtonAction(ActionEvent e) {
+    public void doDivButtonAction(ActionEvent event) {
 
         display.setText(display.getText().concat("/"));
         operator = '/';
     }
 
-    public void doEquButtonAction(ActionEvent e) {
+    public void doDecButtonAction(ActionEvent event) {
 
-        display.setText(display.getText().concat("="));
-        operator = '=';
-        //operand = result;
+        display.setText(display.getText().concat("."));
+        operator = '.';
+    }
+
+    public void doEquButtonAction(ActionEvent event) {
+
+        Calculations.calculate(Calculations.operand);
+        display.setText(String.valueOf(Calculations.result));
+        Calculations.result = Calculations.operand;
+    }
+
+
+    public void doClrButtonAction(ActionEvent event) {
+
+        display.setText("");
+        Calculations.result = 0;
+        Calculations.operator = '+';
+    }
+
+    public void doDelButtonAction(ActionEvent event) {
+
+        String input = display.getText();
+        display.setText("");
+
+        for(int i=0;i<input.length()-1;i++) {
+
+            display.setText(display.getText()+input.charAt(i));
+
+        }
+
     }
 
     private void appendNumberButtonTextAction(ActionEvent event) {
