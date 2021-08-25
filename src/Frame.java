@@ -17,8 +17,8 @@ public class Frame extends JFrame{
     private final JButton[] numberButtons;
     private final JTextField display;
     private final JFrame mainFrame;
+    private final Calculations calculations = new Calculations();
 
-    private char operator = '+';
     public Frame(){
 
         //Hauptframe erzeugen
@@ -66,6 +66,7 @@ public class Frame extends JFrame{
             numberButtons[i] = new JButton(String.valueOf(i));
             numberButtons[i].setFont(myFont);
             numberButtons[i].addActionListener(this::appendNumberButtonTextAction);
+
             numberButtons[i].setFocusable(false);
         }
 
@@ -127,52 +128,47 @@ public class Frame extends JFrame{
 
     // Methoden zum auslösen für ActionListener
     public void doAddButtonAction(ActionEvent event){
+        display.setText("");
+        calculations.add();
 
-        Calculations.operand = Double.parseDouble(display.getText());
-        Calculations.calculate(Calculations.operand);
-        display.setText(display.getText().concat("+"));
-        operator = '+' ;
     }
 
     public void doSubButtonAction(ActionEvent event){
+        display.setText("");
+        calculations.sub();
 
-        Calculations.operand = Double.parseDouble(display.getText());
-        Calculations.calculate(Calculations.operand);
-        display.setText(display.getText().concat("-"));
-        operator = '-' ;
     }
 
     public void doMulButtonAction(ActionEvent event) {
 
-        display.setText(display.getText().concat("*"));
-        operator = '*';
+        display.setText("");
+        calculations.mul();
     }
 
     public void doDivButtonAction(ActionEvent event) {
 
-        display.setText(display.getText().concat("/"));
-        operator = '/';
+        display.setText("");
+        calculations.div();
     }
 
     public void doDecButtonAction(ActionEvent event) {
 
         display.setText(display.getText().concat("."));
-        operator = '.';
+
     }
 
     public void doEquButtonAction(ActionEvent event) {
+        calculations.equal();
+        display.setText(String.valueOf(calculations.getDisplayNumber()));
 
-        Calculations.calculate(Calculations.operand);
-        display.setText(String.valueOf(Calculations.result));
-        Calculations.result = Calculations.operand;
     }
 
 
     public void doClrButtonAction(ActionEvent event) {
 
         display.setText("");
-        Calculations.result = 0;
-        Calculations.operator = '+';
+        calculations.result = 0;
+
     }
 
     public void doDelButtonAction(ActionEvent event) {
@@ -189,10 +185,10 @@ public class Frame extends JFrame{
     }
 
     private void appendNumberButtonTextAction(ActionEvent event) {
-        if (event.getSource() instanceof JButton) {
-            JButton button = (JButton) event.getSource();
+        if (event.getSource() instanceof JButton button) {
             String input = button.getText();
             display.setText(display.getText().concat(input));
+            calculations.setDisplayNumber(Double.parseDouble(input));
         }
     }
 }
