@@ -128,33 +128,34 @@ public class Frame extends JFrame{
 
     // Methoden zum auslösen für ActionListener
     public void doAddButtonAction(ActionEvent event){
-        display.setText("");
+
+        display.setText(display.getText().concat("+"));
         calculations.add();
 
     }
 
     public void doSubButtonAction(ActionEvent event){
-        display.setText("");
+        display.setText(display.getText().concat("-"));
         calculations.sub();
 
     }
 
     public void doMulButtonAction(ActionEvent event) {
 
-        display.setText("");
+        display.setText(display.getText().concat("*"));
         calculations.mul();
     }
 
     public void doDivButtonAction(ActionEvent event) {
 
-        display.setText("");
+        display.setText(display.getText().concat("/"));
         calculations.div();
     }
 
     public void doDecButtonAction(ActionEvent event) {
 
         display.setText(display.getText().concat("."));
-
+        //calculations.displayNumber = Double.parseDouble(display.getText());
     }
 
     public void doEquButtonAction(ActionEvent event) {
