@@ -1,16 +1,12 @@
-import jdk.jshell.spi.ExecutionControl;
 import lombok.Getter;
 import lombok.Setter;
 
 
 public class Calculations {
 
-    @Getter
     public double result;
     @Getter @Setter
     public double displayNumber;
-
-    @Getter
     public Operator operator;
 
     public enum Operator {
@@ -22,7 +18,7 @@ public class Calculations {
     }
 
     protected void calculate() {
-        // Execute the operator.
+
         switch (operator) {
             case NO_OPERATION:
                 result = displayNumber;
@@ -44,9 +40,6 @@ public class Calculations {
                 result /= displayNumber;
                 break;
 
-            default:
-               // throw new ExecutionControl.NotImplementedException();
-
         }
         displayNumber = 0;
     }
@@ -56,10 +49,6 @@ public class Calculations {
         this.operator = operator;
     }
 
-    public Calculations number(final double value) {
-        displayNumber = value;
-        return this;
-    }
 
     public Calculations add() {
         setOperator(Operator.ADD);
