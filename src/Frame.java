@@ -168,7 +168,7 @@ public class Frame extends JFrame{
     public void doClrButtonAction(ActionEvent event) {
 
         display.setText("");
-        calculations.result = 0;
+        calculations.displayNumber = 0;
 
     }
 

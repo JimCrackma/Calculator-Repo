@@ -50,30 +50,25 @@ public class Calculations {
     }
 
 
-    public Calculations add() {
+    public void add() {
         setOperator(Operator.ADD);
-        return this;
     }
 
-    public Calculations sub() {
+    public void sub() {
         setOperator(Operator.SUB);
-        return this;
     }
 
-    public Calculations mul() {
+    public void mul() {
         setOperator(Operator.MUL);
-        return this;
     }
 
-    public Calculations div() {
+    public void div() {
         setOperator(Operator.DIV);
-        return this;
     }
 
-    public Calculations equal() {
-        setOperator(operator.NO_OPERATION);
+    public void equal() {
+        setOperator(Operator.NO_OPERATION);
         displayNumber = result;
-        return this;
     }
 
 }
